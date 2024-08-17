@@ -1,21 +1,28 @@
 import dash
-from dash import dcc, html
 from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
+from dash import dcc, html
 import plotly.graph_objs as go
 import pyaudio
 import numpy as np
 import threading
 import time
 
+# External CSS Stylesheet
+external_stylesheets = [dbc.themes.BOOTSTRAP, 'assets/volume_level_dash.css']                                            
+
 # Initialize the Dash app
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # Layout of the app
 app.layout = html.Div([
-    html.H1("Real-time Microphone Volume Plot"),
+    html.H1("Microphone Volume Plot", className='header'),
     dcc.Graph(id='live-graph', animate=True),
     dcc.Interval(id='graph-update', interval=1000, n_intervals=0),
-    html.Button('Start', id='start-button', n_clicks=0)
+    html.Div(
+        html.Button('Start', id='start-button', n_clicks=0, className='button'),
+        className='button-container'
+    )
 ])
 
 # Global variables to store audio data
@@ -85,4 +92,4 @@ def update_graph(n_intervals):
     return {'data': [data], 'layout': go.Layout(layout)}
 
 if __name__ == '__main__':
-    app.run_server(debug=False, port=8002)
+    app.run_server(debug=True, port=8002)
