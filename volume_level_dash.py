@@ -75,8 +75,8 @@ def start_audio_listener(n_clicks):
 def update_graph(n_intervals):
     global volume_data
 
-    # Generate a list that goes from 30 to 0
-    seconds_since_list = list(range(len(volume_data)))[::-1]
+    # Generate a list that goes from 33 to 3
+    seconds_since_list = list(range(33, 3, -1))
 
     data = go.Scatter(
         x=seconds_since_list,
@@ -85,7 +85,7 @@ def update_graph(n_intervals):
     )
     
     layout = go.Layout(
-        xaxis=dict(title='Seconds Ago', range=[30, 0]),
+        xaxis=dict(title='Seconds Ago', range=[33, 3]),
         yaxis=dict(title='Volume (db)',range=[min(volume_data) if volume_data else -1, max(volume_data) if volume_data else 1])
     )
 
