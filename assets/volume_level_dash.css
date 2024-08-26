@@ -7,6 +7,15 @@
     border: none;
     color: white;
     padding: 15px 32px;
+    margin-right: 10px;
+}
+
+.blue-button {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    margin-left: 10px;
 }
 
 .button-container {

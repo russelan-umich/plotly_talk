@@ -3,10 +3,13 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 from dash import dcc, html
 import plotly.graph_objs as go
-import pyaudio
 import numpy as np
 import threading
+import pyaudio
+import random
+import string
 import time
+import csv
 
 # External CSS Stylesheet
 external_stylesheets = [dbc.themes.BOOTSTRAP, 'assets/volume_level_dash.css']                                            
@@ -20,7 +23,11 @@ app.layout = html.Div([
     dcc.Graph(id='live-graph', animate=True),
     dcc.Interval(id='graph-update', interval=1000, n_intervals=0),
     html.Div(
-        html.Button('Start', id='start-button', n_clicks=0, className='button'),
+        [
+            html.Button('Start', id='start-button', n_clicks=0, className='button'),
+            html.Button('Download', id='download-button', n_clicks=0, className='blue-button'),
+            dcc.Download(id='download-data')
+        ],
         className='button-container'
     )
 ])
@@ -66,6 +73,22 @@ def start_audio_listener(n_clicks):
         start_recording = True
         threading.Thread(target=audio_listener).start()
         return "Stop"
+    
+# Callback to download the volume data
+@app.callback(
+    Output('download-data', 'data'),
+    [Input('download-button', 'n_clicks')]
+)
+def download_volume_data(n_clicks):
+    if n_clicks:
+        # Allow user to download the volume data
+        random_string = ''.join(random.choices(string.digits, k=10))
+        csv_file = f'volume_data_{random_string}.csv'
+        with open(csv_file, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['Volume'])
+            writer.writerows(zip(volume_data))
+        return dcc.send_file(csv_file, csv_file)
 
 # Callback to update the graph
 @app.callback(
