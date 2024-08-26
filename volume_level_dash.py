@@ -32,6 +32,9 @@ app.layout = html.Div([
     )
 ])
 
+# Save a server object for running the app
+server = app.server
+
 # Global variables to store audio data
 volume_data = []
 start_recording = False
