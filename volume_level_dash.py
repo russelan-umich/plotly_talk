@@ -52,8 +52,7 @@ def audio_listener():
     while start_recording:
         data = np.frombuffer(stream.read(CHUNK), dtype=np.int16)
         volume = np.linalg.norm(data) / CHUNK
-        volume_db = 20 * np.log10(volume)
-        volume_data.append(volume_db)
+        volume_data.append(volume)
         if len(volume_data) > 30:
             volume_data.pop(0)
         time.sleep(1)
@@ -102,17 +101,20 @@ def update_graph(n_intervals):
     global volume_data
 
     # Generate a list that goes from 33 to 3
-    seconds_since_list = list(range(33, 3, -1))
+    seconds_since_list = list(range(3, 33, 1))
+
+    # Reverse the volume data to plot the most recent data on the right
+    volume_data_reverse = volume_data[::-1]
 
     data = go.Scatter(
         x=seconds_since_list,
-        y=volume_data,
+        y=volume_data_reverse,
         mode='lines+markers'
     )
     
     layout = go.Layout(
         xaxis=dict(title='Seconds Ago', range=[33, 3]),
-        yaxis=dict(title='Volume (db)',range=[min(volume_data) if volume_data else -1, max(volume_data) if volume_data else 1])
+        yaxis=dict(title='Normalized Volume',range=[min(volume_data) if volume_data else -1, max(volume_data) if volume_data else 1])
     )
 
     return {'data': [data], 'layout': go.Layout(layout)}
