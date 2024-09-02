@@ -100,7 +100,7 @@ def download_volume_data(n_clicks):
 def update_graph(n_intervals):
     global volume_data
 
-    # Generate a list that goes from 33 to 3
+    # Generate a list that goes from 3 to 33
     seconds_since_list = list(range(3, 33, 1))
 
     # Reverse the volume data to plot the most recent data on the right
