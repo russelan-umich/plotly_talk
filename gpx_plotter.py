@@ -60,7 +60,7 @@ def plot_gpx_data(id):
     gpx_plot.update_layout(
             mapbox_center_lon=df['lon'].mean(), 
             mapbox_center_lat=df['lat'].mean(),
-            mapbox_zoom=13, 
+            mapbox_zoom=12, 
             title={'text': f'Sample GPX Plot', 
                    'xanchor' : 'left', 
                    'yanchor' : 'top',
