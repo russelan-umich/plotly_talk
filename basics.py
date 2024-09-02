@@ -34,4 +34,4 @@ def update_graph(col_chosen):
 
 # Run the app
 if __name__ == '__main__':
-    app.run(debug=False, port=8001)
+    app.run(debug=True, port=8001)

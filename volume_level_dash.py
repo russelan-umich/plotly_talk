@@ -120,4 +120,4 @@ def update_graph(n_intervals):
     return {'data': [data], 'layout': go.Layout(layout)}
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8002)
+    app.run_server(debug=True, port=8003)

@@ -62,7 +62,7 @@ def plot_gpx_data(id):
             mapbox_center_lat=df['lat'].mean(),
             mapbox_zoom=13, 
             title={'text': f'Sample GPX Plot', 
-                   'xanchor' : 'center', 
+                   'xanchor' : 'left', 
                    'yanchor' : 'top',
             }
                 
@@ -82,4 +82,4 @@ def plot_gpx_data(id):
 
 # Run the app
 if __name__ == '__main__':
-    app.run(debug=False, port=8003)
+    app.run(debug=True, port=8002)
